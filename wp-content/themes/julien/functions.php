@@ -211,3 +211,50 @@ function julien_content_nav( $html_id ) {
 	<?php endif;
 }
 endif;
+
+/*
+ * Créer un widget dans le dashboard
+ */
+function custom_dashboard_product_widget(){
+	wp_add_dashboard_widget(
+		'dashboard_widget_recent_product',
+		'Les derniers produits',
+		'custom_dashboard_product_widget_content',
+		$control_callback = null
+	);
+}
+add_action('wp_dashboard_setup', 'custom_dashboard_product_widget');
+
+function custom_dashboard_product_widget_content() {
+	$args = array(
+		'post_type' => 'produit',
+		'orderby' => 'date',
+		'order' => 'DESC',
+		'numberposts' => 5
+	);
+
+	$produits = get_posts($args);
+
+	echo '<ol id="dash_widget_produits">';
+
+	foreach ($produits as $index=>$produit) {
+            
+		$title = $produit->post_title;
+		$description = $produit->post_content;
+                $prix = get_post_meta($produit->ID,'_produit_info',true);
+                $dispo = get_post_meta($produit->ID,'_dispo_produit',true);
+
+		echo '<li>';
+		echo '<h4>';
+		echo $title;
+		echo '</h4>';
+
+		echo '<p>Description: ' . $description . '</p>';
+		echo '<p>Prix: ' . $prix . '</p>';
+		echo '<p>Disponibilité: ' . $dispo . '</p>';
+		echo '</li>';
+
+	}
+
+	echo '</ol>';
+}
