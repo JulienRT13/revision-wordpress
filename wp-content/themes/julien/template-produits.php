@@ -14,14 +14,12 @@ Template Name: Liste de produits
         ?>
 			<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                                    <div class="entry-header">
-                                            <h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
-                                    </div>
-
-                                    <div class="entry-content">
-                                            <?php the_content(); ?>
-                                    </div>
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                    <?php echo $prix = get_post_meta($post->ID,'_produit_info',true); ?>
+                                    <?php echo $dispo = get_post_meta($post->ID,'_dispo_produit',true); ?>
+                                    <?php echo $image = get_post_meta($post->ID,'_image',true); ?>
                                 </div><!-- #post -->
+                                <p>---------------------------</p>
 			<?php endwhile; // end of the loop. ?>
 
 </div>

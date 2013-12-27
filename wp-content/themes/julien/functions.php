@@ -167,12 +167,30 @@ function julien_produit_info($post){
   $url = get_post_meta($post->ID,'_produit_info',true);
   echo '<label for="prix_meta">Prix (en euros) :</label>';
   echo '<input id="prix_meta" type="text" name="prix" value="'.$url.'" />';
+  
+  echo '</br>';
+  $dispo = get_post_meta($post->ID,'_dispo_produit',true);
+  echo '<label for="dispo_meta">Indiquez la disponibilité du produit :</label>';
+  echo '<select name="dispo_produit">';
+  echo '<option ' . selected( 'dispo', $dispo, false ) . ' value="dispo">En stock</option>';
+  echo '<option ' . selected( 'encours', $dispo, false ) . ' value="encours">En cours d\'approvisionnement</option>';
+  echo '<option ' . selected( 'indispo', $dispo, false ) . ' value="indispo">En rupture</option>';
+  echo '</select>';
+  
+   echo '</br>';
+  $image = get_post_meta($post->ID,'_image',true);
+  echo '<label for="image_meta">Image :</label>';
+  echo '<input id="image_meta" type="file" name="image" value="'.$image.'" />';
 }
 
 add_action('save_post','julien_save_metabox');
 function julien_save_metabox($post_id){
 if(isset($_POST['prix']))
   update_post_meta($post_id, '_produit_info', $_POST['prix']);
+if(isset($_POST['dispo_produit']))
+  update_post_meta($post_id, '_dispo_produit', $_POST['dispo_produit']);
+if(isset($_POST['image']))
+  update_post_meta($post_id, '_image', $_POST['image']);
 }
 
 if ( ! function_exists( 'julien_content_nav' ) ) :
