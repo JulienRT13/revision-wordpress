@@ -6,6 +6,7 @@
  *
  * @return void
  */
+
 function julien_styles() {
 
 	// Loads our main stylesheet.
@@ -74,12 +75,12 @@ add_filter( 'comment_form_defaults', 'julien_manage_default_fields');
 if ( !function_exists('julien_manage_default_fields')) {
    function julien_manage_default_fields( $default ) {
  
-      // Récupération des infos connues sur le visiteur
-      // Permet de pré-remplir nos nouveaux champs
+      // RÃ©cupÃ©ration des infos connues sur le visiteur
+      // Permet de prÃ©-remplir nos nouveaux champs
  
       $commenter = wp_get_current_commenter();
  
-      // Suppression d'un champ par défaut parmi : author, email, url
+      // Suppression d'un champ par dÃ©faut parmi : author, email, url
  
       unset ( $default['fields']['url'] );
       
@@ -141,7 +142,7 @@ register_taxonomy( 'couleur', 'produit', array( 'hierarchical' => true, 'label' 
 }
 
 /**
- * Défini quelle post type sont sur la page d'accueil
+ * DÃ©fini quelle post type sont sur la page d'accueil
  *
 */
 /*
@@ -170,7 +171,7 @@ function julien_produit_info($post){
   
   echo '</br>';
   $dispo = get_post_meta($post->ID,'_dispo_produit',true);
-  echo '<label for="dispo_meta">Indiquez la disponibilité du produit :</label>';
+  echo '<label for="dispo_meta">Indiquez la disponibilitÃ© du produit :</label>';
   echo '<select name="dispo_produit">';
   echo '<option ' . selected( 'dispo', $dispo, false ) . ' value="dispo">En stock</option>';
   echo '<option ' . selected( 'encours', $dispo, false ) . ' value="encours">En cours d\'approvisionnement</option>';
@@ -205,7 +206,7 @@ function julien_content_nav( $html_id ) {
 
 	if ( $wp_query->max_num_pages > 1 ) : ?>
 		<nav id="<?php echo $html_id; ?>" class="navigation" role="navigation">
-			<div class="nav-previous"><?php next_posts_link('Articles précédents'); ?></div>
+			<div class="nav-previous"><?php next_posts_link('Articles prÃ©cÃ©dents'); ?></div>
 			<div class="nav-next"><?php previous_posts_link('Articles suivants'); ?></div>
 		</nav><!-- #<?php echo $html_id; ?> .navigation -->
 	<?php endif;
@@ -213,7 +214,7 @@ function julien_content_nav( $html_id ) {
 endif;
 
 /*
- * Créer un widget dans le dashboard
+ * CrÃ©er un widget dans le dashboard
  */
 function custom_dashboard_product_widget(){
 	wp_add_dashboard_widget(
@@ -251,7 +252,7 @@ function custom_dashboard_product_widget_content() {
 
 		echo '<p>Description: ' . $description . '</p>';
 		echo '<p>Prix: ' . $prix . '</p>';
-		echo '<p>Disponibilité: ' . $dispo . '</p>';
+		echo '<p>DisponibilitÃ©: ' . $dispo . '</p>';
 		echo '</li>';
 
 	}
