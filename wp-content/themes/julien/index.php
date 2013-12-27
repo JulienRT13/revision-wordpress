@@ -38,6 +38,7 @@ get_header(); ?>
                     </div>
                 </div>
             <?php endwhile; ?>
+            <?php julien_content_nav( 'nav-below' ); ?>
         <?php else : ?>
             <p>Aucun article !!</p>
         <?php endif; ?>

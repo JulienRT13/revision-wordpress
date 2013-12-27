@@ -158,12 +158,38 @@ function julien_my_get_posts( $query ) {
  * Ajoute des customs fields
  *
 */
-add_action('wp_insert_post', 'julien_champs_personnalises_defaut');
- function julien_champs_personnalises_defaut($post_id)
- {
- if ( $_GET['post_type'] == 'produit' ) {
- add_post_meta($post_id, 'custom_field_1', '', true);
- add_post_meta($post_id, 'custom_field_2', '', true);
- }
- return true;
- }
+add_action('add_meta_boxes','julien_init_metabox');
+function julien_init_metabox(){
+  add_meta_box('produit_info', 'Information sur le produit', 'julien_produit_info', 'produit', 'normal');
+}
+
+function julien_produit_info($post){
+  $url = get_post_meta($post->ID,'_produit_info',true);
+  echo '<label for="prix_meta">Prix (en euros) :</label>';
+  echo '<input id="prix_meta" type="text" name="prix" value="'.$url.'" />';
+}
+
+add_action('save_post','julien_save_metabox');
+function julien_save_metabox($post_id){
+if(isset($_POST['prix']))
+  update_post_meta($post_id, '_produit_info', $_POST['prix']);
+}
+
+if ( ! function_exists( 'julien_content_nav' ) ) :
+/**
+ * Displays navigation to next/previous pages when applicable.
+ *
+ */
+function julien_content_nav( $html_id ) {
+	global $wp_query;
+
+	$html_id = esc_attr( $html_id );
+
+	if ( $wp_query->max_num_pages > 1 ) : ?>
+		<nav id="<?php echo $html_id; ?>" class="navigation" role="navigation">
+			<div class="nav-previous"><?php next_posts_link('Articles précédents'); ?></div>
+			<div class="nav-next"><?php previous_posts_link('Articles suivants'); ?></div>
+		</nav><!-- #<?php echo $html_id; ?> .navigation -->
+	<?php endif;
+}
+endif;
