@@ -1,5 +1,45 @@
 <?php
 
+include('inc/shortcodes.php');
+
+function julien_setup() {
+	/*
+	 * Makes Twenty Twelve available for translation.
+	 *
+	 * Translations can be added to the /languages/ directory.
+	 * If you're building a theme based on Twenty Twelve, use a find and replace
+	 * to change 'twentytwelve' to the name of your theme in all the template files.
+	 */
+	load_theme_textdomain( 'julien', get_template_directory() . '/languages' );
+
+	// This theme styles the visual editor with editor-style.css to match the theme style.
+	add_editor_style();
+
+	// Adds RSS feed links to <head> for posts and comments.
+	add_theme_support( 'automatic-feed-links' );
+
+	// This theme supports a variety of post formats.
+	add_theme_support( 'post-formats', array( 'aside', 'image', 'link', 'quote', 'status' ) );
+
+	// This theme uses wp_nav_menu() in one location.
+	register_nav_menu( 'primary', __( 'Primary Menu', 'julien' ) );
+
+	/*
+	 * This theme supports custom background color and image,
+	 * and here we also set up the default background color.
+	 */
+	add_theme_support( 'custom-background', array(
+		'default-color' => 'e6e6e6',
+	) );
+
+	// This theme uses a custom image size for featured images, displayed on "standard" posts.
+	add_theme_support( 'post-thumbnails' );
+	set_post_thumbnail_size( 624, 9999 ); // Unlimited height, soft crop
+}
+add_action( 'after_setup_theme', 'julien_setup' );
+
+
+
 /**
  * Enqueue styles for front-end.
  *
@@ -138,11 +178,12 @@ function julien_create_post_type() {
       'public' => true
     )
   );
-register_taxonomy( 'couleur', 'produit', array( 'hierarchical' => true, 'label' => 'Couleur', 'query_var' => true, 'rewrite' => true ) );
+  register_taxonomy( 'couleur', 'produit', array( 'hierarchical' => true, 'label' => 'Couleur', 'query_var' => true, 'rewrite' => true ) );
+  register_taxonomy( 'serie', 'post', array( 'hierarchical' => true, 'label' => 'Série', 'query_var' => true, 'rewrite' => true ) );
 }
 
 /**
- * DÃ©fini quelle post type sont sur la page d'accueil
+ * Défini quelle post type sont sur la page d'accueil
  *
 */
 /*
@@ -162,8 +203,23 @@ function julien_my_get_posts( $query ) {
 add_action('add_meta_boxes','julien_init_metabox');
 function julien_init_metabox(){
   add_meta_box('produit_info', 'Information sur le produit', 'julien_produit_info', 'produit', 'normal');
+  add_meta_box('temoignage_info', 'Ajouter un témoinagne', 'julien_temoignage_info', 'temoignage', 'normal');
 }
 
+/*
+ * Supprime le titre et le textarea pour l'ajout d'un témoinages
+ */
+/*
+function julien_remove_metabox()
+{
+	remove_post_type_support('temoignage', 'title');
+        remove_post_type_support('temoignage', 'editor');
+}
+add_action( 'admin_init', 'julien_remove_metabox' );
+*/
+/*
+ * Rempli la métaboxe produit 
+ */
 function julien_produit_info($post){
   $url = get_post_meta($post->ID,'_produit_info',true);
   echo '<label for="prix_meta">Prix (en euros) :</label>';
@@ -184,6 +240,9 @@ function julien_produit_info($post){
   echo '<input id="image_meta" type="file" name="image" value="'.$image.'" />';
 }
 
+/*
+ * Sauvegarde les données saisie pour un produit
+ */
 add_action('save_post','julien_save_metabox');
 function julien_save_metabox($post_id){
 if(isset($_POST['prix']))
