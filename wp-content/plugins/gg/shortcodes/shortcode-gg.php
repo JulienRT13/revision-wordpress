@@ -2,20 +2,6 @@
 
 function shortcode_gg() {
     
-    
-    $form = '<form action="'.  the_permalink() .'" method="post">
-                        <label for="name">Nom complet</label>
-                        <input type="text" name="myname" id="name" placeholder="Votre nom" />
-                        <hr>
-                        <label for="email">Adresse e-mail</label>
-                        <input type="email" name="myemail" id="email" placeholder="Votre e-mail" />
-                        <hr>
-                        <label for="message">Avis</label>
-                        <textarea cols="50" rows="10" name="mymessage" id="message" placeholder="Votre message..."></textarea>
-                        <br>
-                        <input type="submit" name="submit" value="Envoyer votre message" />
-                </form>';
-    
     if (isset($_POST['submit'])) {
                 $name = htmlspecialchars($_POST['myname']);
                 $email = sanitize_email($_POST['myemail']);
@@ -40,8 +26,20 @@ function shortcode_gg() {
          */
 
         } else {
-
-                return $form;
+?>
+                <form action="'.<?php echo the_permalink(); ?>.'" method="post">
+                        <label for="name">Nom complet</label>
+                        <input type="text" name="myname" id="name" placeholder="Votre nom" />
+                        <hr>
+                        <label for="email">Adresse e-mail</label>
+                        <input type="email" name="myemail" id="email" placeholder="Votre e-mail" />
+                        <hr>
+                        <label for="message">Avis</label>
+                        <textarea cols="50" rows="10" name="mymessage" id="message" placeholder="Votre message..."></textarea>
+                        <br>
+                        <input type="submit" name="submit" value="Envoyer votre message" />
+                </form>
+<?php
 
         }
     

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 26 Décembre 2013 à 13:59
+-- Généré le: Lun 30 Décembre 2013 à 18:04
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -92,6 +92,69 @@ CREATE TABLE IF NOT EXISTS `wp_links` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `wp_ninja_forms`
+--
+
+CREATE TABLE IF NOT EXISTS `wp_ninja_forms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data` longtext NOT NULL,
+  `date_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wp_ninja_forms_fav_fields`
+--
+
+CREATE TABLE IF NOT EXISTS `wp_ninja_forms_fav_fields` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `row_type` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `order` int(11) NOT NULL,
+  `data` longtext NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wp_ninja_forms_fields`
+--
+
+CREATE TABLE IF NOT EXISTS `wp_ninja_forms_fields` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `order` int(11) NOT NULL,
+  `data` longtext NOT NULL,
+  `fav_id` int(11) DEFAULT NULL,
+  `def_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wp_ninja_forms_subs`
+--
+
+CREATE TABLE IF NOT EXISTS `wp_ninja_forms_subs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `form_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `data` longtext NOT NULL,
+  `date_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `wp_options`
 --
 
@@ -102,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `wp_options` (
   `autoload` varchar(20) NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=309 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=525 ;
 
 -- --------------------------------------------------------
 
@@ -146,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `wp_postmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=174 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=248 ;
 
 -- --------------------------------------------------------
 
@@ -183,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `wp_posts` (
   KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=99 ;
 
 -- --------------------------------------------------------
 
@@ -199,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `wp_terms` (
   PRIMARY KEY (`term_id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -231,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
   PRIMARY KEY (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -247,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `wp_usermeta` (
   PRIMARY KEY (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
