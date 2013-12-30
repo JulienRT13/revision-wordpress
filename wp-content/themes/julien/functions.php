@@ -178,6 +178,15 @@ function julien_create_post_type() {
       'public' => true
     )
   );
+  register_post_type( 'temoignage',
+    array(
+      'labels' => array(
+        'name' => __( 'Témoignages' ),
+        'singular_name' => __( 'Témoignage' )
+      ),
+      'public' => true
+    )
+  );
   register_taxonomy( 'couleur', 'produit', array( 'hierarchical' => true, 'label' => 'Couleur', 'query_var' => true, 'rewrite' => true ) );
   register_taxonomy( 'serie', 'post', array( 'hierarchical' => true, 'label' => 'Série', 'query_var' => true, 'rewrite' => true ) );
 }
