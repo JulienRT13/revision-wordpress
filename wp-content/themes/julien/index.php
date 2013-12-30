@@ -20,6 +20,7 @@ get_header(); ?>
     <div id="templatemo_content_right">
         <?php if ( have_posts() ) : ?>
             <?php while ( have_posts() ) : the_post(); ?>
+                <?php //get_template_part( 'content', get_post_format() ); ?>
                 <div class="templatemo_post_section" id="post-<?php the_ID(); ?>">
                     <div class="date_section">
                             <?php the_time('d'); ?><span><?php the_time('M'); ?></span>                   

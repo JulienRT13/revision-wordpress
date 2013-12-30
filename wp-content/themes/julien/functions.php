@@ -19,7 +19,7 @@ function julien_setup() {
 	add_theme_support( 'automatic-feed-links' );
 
 	// This theme supports a variety of post formats.
-	add_theme_support( 'post-formats', array( 'aside', 'image', 'link', 'quote', 'status' ) );
+	add_theme_support( 'post-formats', array( 'image' ) );
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menu( 'primary', __( 'Primary Menu', 'julien' ) );
@@ -212,7 +212,6 @@ function julien_my_get_posts( $query ) {
 add_action('add_meta_boxes','julien_init_metabox');
 function julien_init_metabox(){
   add_meta_box('produit_info', 'Information sur le produit', 'julien_produit_info', 'produit', 'normal');
-  add_meta_box('temoignage_info', 'Ajouter un témoinagne', 'julien_temoignage_info', 'temoignage', 'normal');
 }
 
 /*
